@@ -1,37 +1,37 @@
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function ProgressBar() {
   const barRef = useRef(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.to(barRef.current, {
-        scaleX: 1,
-        ease: "none",
-        scrollTrigger: {
-          trigger: document.documentElement,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 0.3,
-        },
-      });
-    });
-    return () => ctx.revert();
+    const update = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      if (barRef.current) {
+        barRef.current.style.width = `${progress}%`;
+      }
+    };
+
+    window.addEventListener("scroll", update, { passive: true });
+    update();
+    return () => window.removeEventListener("scroll", update);
   }, []);
 
   return (
     <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        height: "2px",
+        zIndex: 9999,
+        width: "0%",
+        background: "var(--accent)",
+        transition: "width 0.1s linear",
+        boxShadow: "0 0 8px var(--accent)",
+      }}
       ref={barRef}
-      className="progress-bar"
-      style={{ transform: "scaleX(0)" }}
-      role="progressbar"
-      aria-label="Scroll progress"
-      aria-valuemin={0}
-      aria-valuemax={100}
     />
   );
 }

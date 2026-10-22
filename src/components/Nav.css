@@ -3,22 +3,39 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: var(--z-nav);
-  padding: 20px 0;
-  mix-blend-mode: difference;
+  z-index: 1000;
+  padding: 24px 48px;
+  transition: all var(--transition);
+  opacity: 0;
+}
+
+.nav--scrolled {
+  padding: 16px 48px;
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
 }
 
 .nav__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 .nav__logo {
-  font-size: 1.2rem;
-  color: var(--paper);
-  z-index: calc(var(--z-nav) + 2);
-  position: relative;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: var(--text);
+  transition: color var(--transition);
+}
+
+.nav__logo:hover {
+  color: var(--accent);
 }
 
 .nav__links {
@@ -26,133 +43,61 @@
   gap: 32px;
 }
 
-.nav__link {
-  color: var(--paper);
-  font-size: 0.7rem;
-  transition: opacity var(--transition-fast);
+.nav__links button {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  transition: color var(--transition);
   position: relative;
 }
 
-.nav__link::after {
+.nav__links button::after {
   content: "";
   position: absolute;
   bottom: -4px;
   left: 0;
-  right: 0;
+  width: 0;
   height: 1px;
-  background: var(--paper);
-  transform: scaleX(0);
-  transition: transform var(--transition-fast);
-  transform-origin: left;
+  background: var(--accent);
+  transition: width var(--transition);
 }
 
-.nav__link:hover::after,
-.nav__link:focus-visible::after {
-  transform: scaleX(1);
+.nav__links button:hover {
+  color: var(--text);
 }
 
-.nav__link:focus-visible {
-  outline: 1px solid var(--paper);
-  outline-offset: 4px;
+.nav__links button:hover::after {
+  width: 100%;
 }
 
-.nav__social {
-  display: flex;
-  gap: 16px;
-  align-items: center;
+.nav__github {
+  color: var(--text-dim);
+  transition: color var(--transition);
 }
 
-.nav__icon {
-  color: var(--paper);
-  transition: opacity var(--transition-fast), transform var(--transition-fast);
-  display: flex;
+.nav__github:hover {
+  color: var(--accent);
 }
 
-.nav__icon:hover {
-  opacity: 0.7;
-  transform: scale(1.1);
-}
-
-.nav__icon:focus-visible {
-  outline: 1px solid var(--paper);
-  outline-offset: 4px;
-}
-
-.nav__burger {
-  display: none;
-  flex-direction: column;
-  gap: 6px;
-  padding: 8px;
-  z-index: calc(var(--z-nav) + 2);
-  position: relative;
-}
-
-.nav__burger-line {
-  display: block;
-  width: 24px;
-  height: 2px;
-  background: var(--paper);
-  transition: transform var(--transition-fast), opacity var(--transition-fast);
-}
-
-.nav__burger-line.open:first-child {
-  transform: rotate(45deg) translate(3px, 3px);
-}
-
-.nav__burger-line.open:last-child {
-  transform: rotate(-45deg) translate(3px, -3px);
-}
-
-/* Mobile menu */
-.mobile-menu {
-  position: fixed;
-  inset: 0;
-  z-index: calc(var(--z-nav) + 1);
-  background: var(--ink);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 48px;
-  clip-path: circle(0% at calc(100% - 40px) 40px);
-  pointer-events: none;
-}
-
-.mobile-menu.active {
-  pointer-events: all;
-}
-
-.mobile-menu__nav {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-}
-
-.mobile-menu__link {
-  font-size: clamp(2rem, 8vw, 4rem);
-  color: var(--paper);
-  transition: opacity var(--transition-fast);
-}
-
-.mobile-menu__link:hover {
-  opacity: 0.6;
-}
-
-.mobile-menu__social {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-@media (max-width: 900px) {
-  .nav__links,
-  .nav__social {
-    display: none;
+@media (max-width: 768px) {
+  .nav {
+    padding: 16px 24px;
   }
+  .nav--scrolled {
+    padding: 12px 24px;
+  }
+  .nav__links {
+    gap: 16px;
+  }
+  .nav__links button {
+    font-size: 10px;
+  }
+}
 
-  .nav__burger {
-    display: flex;
+@media (max-width: 480px) {
+  .nav__links {
+    display: none;
   }
 }

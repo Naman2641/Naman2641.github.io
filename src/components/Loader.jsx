@@ -1,95 +1,81 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { personal } from "../data";
 import "./Loader.css";
 
 export default function Loader({ onComplete }) {
-  const loaderRef = useRef(null);
-  const wordmarkRef = useRef(null);
-  const caretRef = useRef(null);
-  const progressRef = useRef(null);
-  const [displayedText, setDisplayedText] = useState("");
-  const letters = personal.wordmark.split("");
+  const containerRef = useRef(null);
+  const lettersRef = useRef([]);
+  const subtitleRef = useRef(null);
+  const lineRef = useRef(null);
 
   useEffect(() => {
     const tl = gsap.timeline({
       onComplete: () => {
-        // Reveal animation
-        const revealTl = gsap.timeline({
-          onComplete: () => {
-            if (onComplete) onComplete();
-          },
+        gsap.to(containerRef.current, {
+          yPercent: -100,
+          duration: 0.8,
+          ease: "power4.inOut",
+          onComplete,
         });
-
-        revealTl
-          .to(wordmarkRef.current, {
-            scale: 8,
-            opacity: 0,
-            filter: "blur(20px)",
-            duration: 0.8,
-            ease: "power2.in",
-          })
-          .to(
-            loaderRef.current,
-            {
-              clipPath: "circle(150% at 50% 50%)",
-              duration: 1,
-              ease: "power3.inOut",
-            },
-            "-=0.4"
-          )
-          .set(loaderRef.current, { display: "none" });
       },
     });
 
-    // Letter-by-letter reveal
-    letters.forEach((_, i) => {
-      tl.call(
-        () => {
-          setDisplayedText(personal.wordmark.substring(0, i + 1));
-        },
-        null,
-        i * 0.1
-      );
-    });
-
-    // Progress bar
-    tl.to(
-      progressRef.current,
-      {
-        scaleX: 1,
-        duration: letters.length * 0.1 + 0.5,
-        ease: "power1.inOut",
-      },
-      0
+    // Line wipe in
+    tl.fromTo(
+      lineRef.current,
+      { scaleX: 0 },
+      { scaleX: 1, duration: 0.6, ease: "power2.out" }
     );
 
-    // Pause after reveal
+    // Letters stagger in
+    tl.fromTo(
+      lettersRef.current,
+      { y: 80, opacity: 0, rotateX: 90 },
+      {
+        y: 0,
+        opacity: 1,
+        rotateX: 0,
+        duration: 0.6,
+        stagger: 0.06,
+        ease: "back.out(1.7)",
+      },
+      "-=0.3"
+    );
+
+    // Subtitle fade
+    tl.fromTo(
+      subtitleRef.current,
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" },
+      "-=0.2"
+    );
+
+    // Hold for a beat
     tl.to({}, { duration: 0.6 });
 
     return () => tl.kill();
-  }, []);
+  }, [onComplete]);
+
+  const wordmark = "NAMAN.";
 
   return (
-    <div
-      ref={loaderRef}
-      className="loader"
-      role="status"
-      aria-label="Loading portfolio"
-    >
+    <div className="loader" ref={containerRef}>
       <div className="loader__content">
-        <h1 ref={wordmarkRef} className="loader__wordmark headline bloom-text">
-          {displayedText}
-          <span ref={caretRef} className="loader__caret" aria-hidden="true">
-            |
-          </span>
+        <div className="loader__line" ref={lineRef} />
+        <h1 className="loader__wordmark">
+          {wordmark.split("").map((char, i) => (
+            <span
+              key={i}
+              ref={(el) => (lettersRef.current[i] = el)}
+              className="loader__letter"
+            >
+              {char}
+            </span>
+          ))}
         </h1>
-        <div className="loader__progress-track">
-          <div
-            ref={progressRef}
-            className="loader__progress-bar"
-          />
-        </div>
+        <p className="loader__subtitle" ref={subtitleRef}>
+          portfolio · 2026
+        </p>
       </div>
     </div>
   );

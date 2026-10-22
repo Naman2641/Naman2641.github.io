@@ -1,152 +1,131 @@
-import { useRef, useEffect } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { personal, links } from "../data";
-import { useReducedMotion } from "../hooks";
+import { links, personal } from "../data";
 import "./Contact.css";
-
-gsap.registerPlugin(ScrollTrigger);
-
-function MagneticPill({ children, href, className, ariaLabel, isMailto }) {
-  const ref = useRef(null);
-
-  const handleMouseMove = (e) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    const dx = (e.clientX - cx) * 0.15;
-    const dy = (e.clientY - cy) * 0.15;
-    gsap.to(ref.current, {
-      x: dx,
-      y: dy,
-      duration: 0.3,
-      ease: "power2.out",
-    });
-  };
-
-  const handleMouseLeave = () => {
-    gsap.to(ref.current, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
-  };
-
-  const Tag = href ? "a" : "button";
-  const props = href
-    ? {
-        href: isMailto ? `mailto:${href}` : href,
-        target: isMailto ? undefined : "_blank",
-        rel: isMailto ? undefined : "noopener noreferrer",
-      }
-    : {};
-
-  return (
-    <Tag
-      ref={ref}
-      className={className}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      aria-label={ariaLabel}
-      {...props}
-    >
-      {children}
-    </Tag>
-  );
-}
 
 export default function Contact() {
   const sectionRef = useRef(null);
-  const headingRef = useRef(null);
-  const wordmarkRef = useRef(null);
-  const reducedMotion = useReducedMotion();
+  const headlineRef = useRef(null);
+  const linksRef = useRef([]);
+  const footerRef = useRef(null);
 
   useEffect(() => {
-    if (reducedMotion.current) return;
     const ctx = gsap.context(() => {
-      // Heading reveal
-      gsap.from(headingRef.current, {
-        y: 60,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 60%",
-          toggleActions: "play none none reverse",
-        },
+      gsap.fromTo(
+        headlineRef.current,
+        { y: 80, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 70%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      linksRef.current.forEach((el, i) => {
+        gsap.fromTo(
+          el,
+          { y: 30, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            delay: 0.2 + i * 0.1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 60%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
       });
 
-      // Bottom wordmark reveal
-      ScrollTrigger.create({
-        trigger: wordmarkRef.current,
-        start: "top bottom",
-        onEnter: () => {
-          gsap.fromTo(
-            wordmarkRef.current,
-            { opacity: 0, scale: 0.8 },
-            { opacity: 1, scale: 1, duration: 0.8, ease: "power3.out" }
-          );
-        },
-        onLeaveBack: () => {
-          gsap.to(wordmarkRef.current, { opacity: 0, duration: 0.3 });
-        },
-      });
+      gsap.fromTo(
+        footerRef.current,
+        { opacity: 0 },
+        {
+          opacity: 1,
+          duration: 0.6,
+          delay: 0.6,
+          scrollTrigger: {
+            trigger: footerRef.current,
+            start: "top 95%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
     }, sectionRef);
+
     return () => ctx.revert();
   }, []);
 
-  // Magnetic letter effect for heading
-  const headingText = "LET'S TALK";
-
   return (
-    <section
-      ref={sectionRef}
-      id="contact"
-      className="contact section section--dark"
-      aria-label="Contact"
-    >
-      <div className="grain-overlay grain-overlay--animated" aria-hidden="true" />
+    <section className="contact section" id="contact" ref={sectionRef}>
+      <div className="contact__inner section__inner">
+        <span className="section__label">get in touch</span>
 
-      <div className="contact__inner container">
-        <h2 ref={headingRef} className="headline bloom-text contact__heading">
-          {headingText.split("").map((char, i) => (
-            <span key={i} className="contact__letter" style={{ display: char === " " ? "inline" : "inline-block" }}>
-              {char === " " ? "\u00A0" : char}
-            </span>
-          ))}
+        <h2 className="contact__headline" ref={headlineRef}>
+          LET'S
+          <br />
+          <span className="contact__outline">TALK</span>
         </h2>
 
-        <div className="contact__pills">
-          <MagneticPill
+        <div className="contact__links">
+          <a
+            href={`mailto:${links.email}`}
+            className="contact__link"
+            ref={(el) => (linksRef.current[0] = el)}
+          >
+            <span className="contact__link-label">Email</span>
+            <span className="contact__link-value">{links.email}</span>
+            <span className="contact__link-arrow">→</span>
+          </a>
+
+          <a
             href={links.github}
-            className="pill pill--ghost contact__pill"
-            ariaLabel="GitHub profile"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="contact__link"
+            ref={(el) => (linksRef.current[1] = el)}
           >
-            GitHub
-          </MagneticPill>
-          <MagneticPill
+            <span className="contact__link-label">GitHub</span>
+            <span className="contact__link-value">Naman2641</span>
+            <span className="contact__link-arrow">→</span>
+          </a>
+
+          <a
             href={links.linkedin}
-            className="pill pill--ghost contact__pill"
-            ariaLabel="LinkedIn profile"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="contact__link"
+            ref={(el) => (linksRef.current[2] = el)}
           >
-            LinkedIn
-          </MagneticPill>
-          <MagneticPill
-            href={links.email}
-            className="pill pill--filled contact__pill"
-            ariaLabel="Send email"
-            isMailto
-          >
-            Email
-          </MagneticPill>
+            <span className="contact__link-label">LinkedIn</span>
+            <span className="contact__link-value">namankumar2641</span>
+            <span className="contact__link-arrow">→</span>
+          </a>
         </div>
-
-        <footer className="contact__footer">
-          <p className="label contact__copyright">{personal.copyright}</p>
-
-          <div ref={wordmarkRef} className="contact__wordmark headline bloom-text">
-            {personal.wordmark}
-          </div>
-        </footer>
       </div>
+
+      {/* Footer */}
+      <footer className="contact__footer" ref={footerRef}>
+        <div className="contact__footer-inner section__inner">
+          <span className="contact__copyright">{personal.copyright}</span>
+          <span className="contact__built">
+            Built with obsession & too many tiny details
+          </span>
+        </div>
+      </footer>
+
+      {/* Ambient glow */}
+      <div className="contact__glow" />
     </section>
   );
 }
