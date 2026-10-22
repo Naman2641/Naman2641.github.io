@@ -1,0 +1,44 @@
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-cursor);
+  pointer-events: none;
+  mix-blend-mode: difference;
+}
+
+.cursor__dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--paper);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.cursor__ring {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(239, 238, 236, 0.6);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+  will-change: transform;
+}
+
+.cursor__label {
+  font-size: 0.5rem;
+  color: var(--paper);
+  white-space: nowrap;
+}
+
+/* Hide default cursor */
+@media (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}

@@ -1,0 +1,89 @@
+.about {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 120px 0;
+}
+
+.about__swirl {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.about__swirl canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.about__inner {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.about__heading {
+  font-size: clamp(3rem, 8vw + 1rem, 9rem);
+  color: var(--paper);
+  margin-bottom: -0.35em;
+  position: relative;
+  z-index: 4;
+}
+
+.about__card {
+  max-width: 640px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.about__card-content {
+  padding: clamp(32px, 5vw, 56px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  text-align: center;
+}
+
+.about__mini-scene {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  overflow: hidden;
+  opacity: 0.8;
+}
+
+.about__mini-scene canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.about__bio {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--grey-200);
+  max-width: 480px;
+}
+
+.about__actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .about {
+    padding: 80px 0;
+  }
+
+  .about__mini-scene {
+    width: 100px;
+    height: 100px;
+  }
+}

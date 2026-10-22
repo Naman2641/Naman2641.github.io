@@ -1,0 +1,322 @@
+/* ============================================================
+   global.css — Design system & global styles
+   Palette: ink #0b0b0c, paper #efeeec, greys only
+   ============================================================ */
+
+@import "@fontsource/archivo/800.css";
+@import "@fontsource/archivo/900.css";
+@import "@fontsource/space-mono/400.css";
+@import "@fontsource/space-mono/700.css";
+
+/* ---- Tokens ---- */
+:root {
+  --ink: #0b0b0c;
+  --paper: #efeeec;
+  --grey-100: #e0dfdd;
+  --grey-200: #c8c7c5;
+  --grey-300: #a0a0a0;
+  --grey-400: #6b6b6b;
+  --grey-500: #3a3a3a;
+  --grey-600: #222222;
+  --grey-700: #181818;
+
+  --font-headline: "Archivo", sans-serif;
+  --font-mono: "Space Mono", monospace;
+
+  --tracking-tight: -0.04em;
+  --tracking-wide: 0.14em;
+
+  --radius-pill: 100px;
+  --radius-card: 22px;
+
+  --transition-fast: 0.22s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-smooth: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-spring: 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --z-cursor: 9999;
+  --z-nav: 1000;
+  --z-loader: 10000;
+  --z-overlay: 5000;
+  --z-progress: 999;
+
+  --bloom: 0 0 30px rgba(255, 255, 255, 0.15), 0 0 60px rgba(255, 255, 255, 0.06);
+}
+
+/* ---- Reset ---- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: auto; /* Lenis handles scrolling */
+}
+
+body {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  color: var(--ink);
+  background: var(--paper);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  color: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img, video, canvas {
+  display: block;
+  max-width: 100%;
+}
+
+/* ---- Skip link ---- */
+.skip-link {
+  position: fixed;
+  top: -100%;
+  left: 16px;
+  z-index: calc(var(--z-loader) + 1);
+  padding: 12px 24px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  border-radius: var(--radius-pill);
+  transition: top var(--transition-fast);
+}
+.skip-link:focus {
+  top: 16px;
+}
+
+/* ---- Typography ---- */
+.headline {
+  font-family: var(--font-headline);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-tight);
+  line-height: 0.88;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  font-size: clamp(0.6rem, 0.5vw + 0.4rem, 0.75rem);
+}
+
+.label-bold {
+  font-weight: 700;
+}
+
+/* ---- Pill button ---- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  border: 1px solid currentColor;
+  transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.pill:hover {
+  transform: scale(1.04);
+}
+
+.pill:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+.pill--filled {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--paper);
+}
+
+.pill--filled:hover {
+  background: var(--grey-100);
+}
+
+.pill--dark {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.pill--dark:hover {
+  background: var(--grey-600);
+}
+
+.pill--ghost {
+  background: transparent;
+  border-color: var(--grey-300);
+}
+
+.pill--ghost:hover {
+  border-color: currentColor;
+}
+
+/* ---- Card ---- */
+.card {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+/* ---- Section bases ---- */
+.section {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.section--dark {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.section--light {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+/* ---- Film grain overlay (dark sections) ---- */
+.grain-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+/* Animate the grain */
+@keyframes grain-drift {
+  0%   { transform: translate(0, 0); }
+  10%  { transform: translate(-2%, -3%); }
+  20%  { transform: translate(3%, 1%); }
+  30%  { transform: translate(-1%, 4%); }
+  40%  { transform: translate(4%, -2%); }
+  50%  { transform: translate(-3%, 2%); }
+  60%  { transform: translate(2%, -4%); }
+  70%  { transform: translate(-4%, 3%); }
+  80%  { transform: translate(1%, -1%); }
+  90%  { transform: translate(3%, 4%); }
+  100% { transform: translate(0, 0); }
+}
+
+.grain-overlay--animated {
+  animation: grain-drift 8s steps(10) infinite;
+}
+
+/* ---- Bloom text glow (dark sections) ---- */
+.bloom-text {
+  text-shadow: var(--bloom);
+}
+
+/* ---- Scroll progress ---- */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--paper);
+  z-index: var(--z-progress);
+  transform-origin: left;
+  will-change: transform;
+  mix-blend-mode: difference;
+}
+
+/* ---- Content container ---- */
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 60px);
+}
+
+/* ---- Reveal animation helpers ---- */
+.reveal-up {
+  clip-path: inset(100% 0 0 0);
+  transform: translateY(40px);
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+/* ---- Prefers reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .grain-overlay--animated {
+    animation: none;
+  }
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .pill {
+    padding: 10px 20px;
+    font-size: 0.65rem;
+  }
+}
