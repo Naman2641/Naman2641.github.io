@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Suspense, lazy } from "react";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -6,11 +6,15 @@ import Loader from "./components/Loader";
 import Nav from "./components/Nav";
 import Hero from "./components/Hero";
 import About from "./components/About";
+import Services from "./components/Services";
 import Projects from "./components/Projects";
 import Skills from "./components/Skills";
 import Contact from "./components/Contact";
 import Cursor from "./components/Cursor";
 import ProgressBar from "./components/ProgressBar";
+
+// Lazy load the 3D scene so it doesn't block initial paint
+const Scene3D = lazy(() => import("./components/Scene3D"));
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,7 +24,9 @@ export default function App() {
 
   // Lenis smooth scroll
   useEffect(() => {
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
     if (prefersReduced) return;
 
     const lenis = new Lenis({
@@ -58,13 +64,19 @@ export default function App() {
 
       {!loaded && <Loader onComplete={() => setLoaded(true)} />}
 
+      {/* 3D Particle Background */}
+      <Suspense fallback={null}>
+        <Scene3D />
+      </Suspense>
+
       <Cursor />
       <ProgressBar />
       <Nav />
 
-      <main id="main-content">
+      <main id="main-content" style={{ position: "relative", zIndex: 1 }}>
         <Hero />
         <About />
+        <Services />
         <Projects />
         <Skills />
         <Contact />

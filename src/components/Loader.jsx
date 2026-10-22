@@ -1,82 +1,83 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import "./Loader.css";
 
 export default function Loader({ onComplete }) {
   const containerRef = useRef(null);
-  const lettersRef = useRef([]);
+  const textRef = useRef(null);
+  const cursorRef = useRef(null);
   const subtitleRef = useRef(null);
-  const lineRef = useRef(null);
+  const progressRef = useRef(null);
+  const [displayText, setDisplayText] = useState("");
 
   useEffect(() => {
-    const tl = gsap.timeline({
-      onComplete: () => {
-        gsap.to(containerRef.current, {
-          yPercent: -100,
-          duration: 0.8,
-          ease: "power4.inOut",
-          onComplete,
-        });
-      },
-    });
+    const word = "NAMAN.";
+    let idx = 0;
+    let typed = "";
 
-    // Line wipe in
-    tl.fromTo(
-      lineRef.current,
-      { scaleX: 0 },
-      { scaleX: 1, duration: 0.6, ease: "power2.out" }
-    );
+    // Phase 1: Type the word letter by letter
+    const typeTimer = setInterval(() => {
+      if (idx < word.length) {
+        typed += word[idx];
+        setDisplayText(typed);
+        idx++;
+      } else {
+        clearInterval(typeTimer);
+        // Phase 2: After typing, animate progress bar + transition out
+        setTimeout(() => {
+          // Fill progress bar
+          gsap.to(progressRef.current, {
+            scaleX: 1,
+            duration: 0.8,
+            ease: "power2.inOut",
+            onComplete: () => {
+              // Slide the whole loader up
+              gsap.to(containerRef.current, {
+                yPercent: -100,
+                duration: 0.9,
+                ease: "power4.inOut",
+                onComplete,
+              });
+            },
+          });
 
-    // Letters stagger in
-    tl.fromTo(
-      lettersRef.current,
-      { y: 80, opacity: 0, rotateX: 90 },
-      {
-        y: 0,
-        opacity: 1,
-        rotateX: 0,
-        duration: 0.6,
-        stagger: 0.06,
-        ease: "back.out(1.7)",
-      },
-      "-=0.3"
-    );
+          // Fade subtitle in
+          gsap.to(subtitleRef.current, {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            ease: "power2.out",
+          });
+        }, 400);
+      }
+    }, 130);
 
-    // Subtitle fade
-    tl.fromTo(
-      subtitleRef.current,
-      { y: 20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" },
-      "-=0.2"
-    );
-
-    // Hold for a beat
-    tl.to({}, { duration: 0.6 });
-
-    return () => tl.kill();
+    return () => clearInterval(typeTimer);
   }, [onComplete]);
-
-  const wordmark = "NAMAN.";
 
   return (
     <div className="loader" ref={containerRef}>
       <div className="loader__content">
-        <div className="loader__line" ref={lineRef} />
-        <h1 className="loader__wordmark">
-          {wordmark.split("").map((char, i) => (
-            <span
-              key={i}
-              ref={(el) => (lettersRef.current[i] = el)}
-              className="loader__letter"
-            >
-              {char}
-            </span>
-          ))}
+        {/* Typed wordmark */}
+        <h1 className="loader__wordmark" ref={textRef}>
+          <span className="loader__typed">{displayText}</span>
+          <span className="loader__cursor" ref={cursorRef}>|</span>
         </h1>
+
+        {/* Subtitle */}
         <p className="loader__subtitle" ref={subtitleRef}>
           portfolio · 2026
         </p>
+
+        {/* Progress bar */}
+        <div className="loader__progress-track">
+          <div className="loader__progress-bar" ref={progressRef} />
+        </div>
       </div>
+
+      {/* Corner decoration */}
+      <div className="loader__corner loader__corner--tl" />
+      <div className="loader__corner loader__corner--br" />
     </div>
   );
 }

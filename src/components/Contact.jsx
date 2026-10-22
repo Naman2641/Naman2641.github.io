@@ -74,7 +74,7 @@ export default function Contact() {
         <h2 className="contact__headline" ref={headlineRef}>
           LET'S
           <br />
-          <span className="contact__outline">TALK</span>
+          <span className="outline">TALK</span>
         </h2>
 
         <div className="contact__links">

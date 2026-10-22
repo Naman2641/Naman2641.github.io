@@ -7,6 +7,7 @@ import "./Skills.css";
 const allTechItems = [
   "Python",
   "C",
+  "C++",
   "MediaPipe",
   "React",
   "Node.js",
@@ -94,7 +95,7 @@ export default function Skills() {
           ref={(el) => (headerRef.current[1] = el)}
         >
           SKILLS &<br />
-          <span className="skills__outline">TOOLS</span>
+          <span className="outline">TOOLS</span>
         </h2>
       </div>
 

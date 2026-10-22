@@ -1,22 +1,22 @@
 // ============================================================
 // data.js — Single source of truth for all portfolio content.
-// Edit this file to personalise the site. Rebuild after changes.
 // ============================================================
 
 export const meta = {
   title: "Naman Kumar — Data Science & AI Portfolio",
   description:
     "Portfolio of Naman Kumar — aspiring data scientist and AI builder studying Computer Science at DSCE, Bengaluru.",
-  ogImage: "/og.png", // TODO: replace with a real OG image
+  ogImage: "/og.png",
   favicon: "/favicon.svg",
-  url: "https://namankumar.dev", // TODO: replace with your actual domain
+  url: "https://namankumar.dev",
 };
 
 export const personal = {
   name: "Naman Kumar",
   wordmark: "NAMAN.",
   tagline: "Aspiring data scientist & AI builder",
-  location: "Bengaluru",
+  location: "Bengaluru, India",
+  resumeUrl: "/resume.pdf",
   copyright: `© ${new Date().getFullYear()} Naman Kumar · Bengaluru`,
 };
 
@@ -26,16 +26,13 @@ export const links = {
   email: "nkg2641@gmail.com",
 };
 
-export const nav = ["Home", "About", "Journey", "Projects", "Skills", "Contact"];
+export const nav = ["Home", "About", "Projects", "Skills", "Contact"];
 
 // -------------------------------------------------------
 // Hero config
 // -------------------------------------------------------
-// Set usePhoto to true and provide photoUrl to swap the 3D
-// bust for a cut-out photo with parallax tilt.
 export const heroConfig = {
-  usePhoto: true,
-  photoUrl: "/hero-photo.jpg",
+  photoUrl: "/naman.jpg",
   headline: ["EXPLORE MY", "PORTFOLIO"],
 };
 
@@ -44,7 +41,11 @@ export const heroConfig = {
 // -------------------------------------------------------
 export const about = {
   heading: "ABOUT",
-  bio: `I'm Naman Kumar, a Computer Science undergrad at Dayananda Sagar College of Engineering, Bengaluru. I'm in my 3rd semester with a CGPA of 8.75, and I'm on a mission to build intelligent systems that solve real problems. My focus is data science and AI — from sign-language recognition to physiological signal analysis — and I love shipping projects that mix hardware, real-time interfaces, and machine learning.`,
+  bio: `I'm Naman Kumar, a Computer Science undergrad at Dayananda Sagar College of Engineering, Bengaluru. Currently in my 3rd semester with a CGPA of 8.75, I'm on a mission to build intelligent systems that solve real problems.
+
+My focus is data science and AI — from sign-language recognition to physiological signal analysis. I love shipping projects that mix hardware, real-time interfaces, and machine learning. I've competed in 3 hackathons and won 2, including "Zero to One" and a physics department ideathon.
+
+When I'm not coding, you'll find me exploring new tech, brainstorming product ideas, or pushing pixels until they're perfect.`,
 };
 
 // -------------------------------------------------------
@@ -62,7 +63,7 @@ export const timeline = [
     title: "Competitions",
     subtitle: "Participated in 3, won 2",
     detail:
-      "Won \"Zero to One\" (college hackathon) and an ideathon organised by the physics department.",
+      'Won "Zero to One" (college hackathon) and an ideathon organised by the physics department.',
   },
   {
     year: "NOW",
@@ -84,9 +85,8 @@ export const projects = [
     description:
       "A real-time sign language recognition system that uses MediaPipe's hand-tracking pipeline to capture 21 3D landmarks per hand, classify gestures via a trained model, and display the recognised signs on screen.",
     tech: ["Python", "MediaPipe"],
-    github: "", // TODO: add GitHub link
-    live: "", // TODO: add live demo link
-    image: null, // TODO: add screenshot path e.g. "/projects/signspeak.png"
+    github: "",
+    live: "",
   },
   {
     id: 2,
@@ -96,9 +96,8 @@ export const projects = [
     description:
       "A health-analytics platform built during a codethon. It ingests WESAD and ECG datasets, runs signal-processing pipelines on the backend, and serves interactive visualisations through a React dashboard connected via FastAPI.",
     tech: ["React", "Node.js", "FastAPI"],
-    github: "", // TODO: add GitHub link
-    live: "", // TODO: add live demo link
-    image: null, // TODO: add screenshot path
+    github: "",
+    live: "",
   },
   {
     id: 3,
@@ -108,20 +107,18 @@ export const projects = [
     description:
       "A real-time cybersecurity monitoring tool built at a hackathon. It streams threat-detection events over WebSocket to a React front-end, giving analysts a live view of network anomalies flagged by an AI model.",
     tech: ["React", "WebSocket"],
-    github: "", // TODO: add GitHub link
-    live: "", // TODO: add live demo link
-    image: null, // TODO: add screenshot path
+    github: "",
+    live: "",
   },
   {
     id: 4,
     name: "Smart Mess Attendance",
-    oneLiner: "Smart attendance system for mess halls.",
+    oneLiner: "Automated attendance system for college mess halls.",
     description:
       "An automated attendance tracking system designed for college mess halls. Students are checked in seamlessly, replacing manual registers with a reliable, low-friction digital workflow.",
     tech: ["Python"],
-    github: "", // TODO: add GitHub link
-    live: "", // TODO: add live demo link
-    image: null, // TODO: add screenshot path
+    github: "",
+    live: "",
   },
   {
     id: 5,
@@ -129,10 +126,9 @@ export const projects = [
     oneLiner: "Motion detection alarm built on an Arduino Uno.",
     description:
       "A hardware project using an Arduino Uno and motion sensors to trigger an alarm when movement is detected. Designed for simple perimeter security or activity monitoring scenarios.",
-    tech: ["Arduino Uno"],
-    github: "", // TODO: add GitHub link
-    live: "", // TODO: add live demo link
-    image: null, // TODO: add screenshot path
+    tech: ["Arduino Uno", "C++"],
+    github: "",
+    live: "",
   },
 ];
 
@@ -142,7 +138,7 @@ export const projects = [
 export const skills = [
   {
     category: "Languages",
-    items: ["Python", "C"],
+    items: ["Python", "C", "C++"],
     description:
       "Core programming languages I use for data science, systems programming, and rapid prototyping.",
     usedIn: ["Signspeak", "Smart Mess Attendance", "SEAMS Motion Alarm"],
@@ -160,5 +156,31 @@ export const skills = [
     description:
       "Hands-on experience with embedded systems and sensor-driven projects.",
     usedIn: ["SEAMS Motion Alarm"],
+  },
+];
+
+// -------------------------------------------------------
+// Services / What I Do
+// -------------------------------------------------------
+export const services = [
+  {
+    title: "AI & ML Solutions",
+    description: "Building intelligent systems with computer vision, NLP, and predictive analytics.",
+    icon: "🧠",
+  },
+  {
+    title: "Full-Stack Development",
+    description: "React frontends, Node/FastAPI backends, real-time WebSocket architectures.",
+    icon: "⚡",
+  },
+  {
+    title: "Hardware & IoT",
+    description: "Arduino-based prototyping, sensor integration, and embedded systems.",
+    icon: "🔧",
+  },
+  {
+    title: "Data Science",
+    description: "Signal processing, physiological data analysis, and interactive dashboards.",
+    icon: "📊",
   },
 ];

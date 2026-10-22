@@ -1,7 +1,3 @@
-.skills__outline {
-  color: transparent;
-  -webkit-text-stroke: 2px var(--text);
-}
 
 /* Marquee */
 .skills__marquee-wrap {
