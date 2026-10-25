@@ -1,37 +1,285 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Naman Kumar</title>
+<meta name="description" content="Naman Kumar. Computer science at DSCE, Bengaluru. Builds things that sense something and decide what to do about it: sign language recognition, wearable ECG analysis, a manipulation detector, an Arduino alarm.">
+<meta name="author" content="Naman Kumar">
+<meta name="theme-color" content="#e3e6e8">
+<link rel="canonical" href="https://naman2641.github.io/">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 
-    <!-- SEO -->
-    <title>Naman Kumar — Data Science & AI Portfolio</title>
-    <meta name="description" content="Portfolio of Naman Kumar — aspiring data scientist and AI builder studying Computer Science at DSCE, Bengaluru. Explore projects in machine learning, real-time systems, and embedded hardware." />
-    <meta name="author" content="Naman Kumar" />
-    <meta name="robots" content="index, follow" />
+<meta property="og:type" content="website">
+<meta property="og:title" content="Naman Kumar">
+<meta property="og:description" content="Builds things that sense something and decide what to do about it.">
+<meta property="og:image" content="https://naman2641.github.io/assets/og.png">
+<meta property="og:url" content="https://naman2641.github.io/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://naman2641.github.io/assets/og.png">
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Naman Kumar — Data Science & AI Portfolio" />
-    <meta property="og:description" content="Aspiring data scientist & AI builder. B.E. Computer Science at DSCE, Bengaluru." />
-    <meta property="og:image" content="./og.png" />
-    <meta property="og:url" content="https://namankumar.dev" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Geist+Mono:wght@400;500&family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script>document.documentElement.classList.add('js');if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('ld')</script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Naman Kumar","url":"https://naman2641.github.io/","email":"mailto:nkg2641@gmail.com","jobTitle":"Computer Science student","alumniOf":{"@type":"CollegeOrUniversity","name":"Dayananda Sagar College of Engineering"},"address":{"@type":"PostalAddress","addressLocality":"Bengaluru","addressCountry":"IN"},"sameAs":["https://github.com/Naman2641","https://www.linkedin.com/in/namankumar2641/"]}
+</script>
+</head>
+<body>
+<div id="loader" role="status" aria-live="polite" aria-label="Loading Naman Kumar">
+  <div class="ld-light"></div>
+  <div class="door l"><div class="nm"><div class="ld-name" aria-hidden="true"><span><i>Naman</i></span><span><i>Kumar</i></span></div></div></div><div class="door r"><div class="nm"><div class="ld-name" aria-hidden="true"><span><i>Naman</i></span><span><i>Kumar</i></span></div></div></div>
+  <div class="ld-ui mono">
+    <div class="ld-row"><span>Portfolio, 2026</span><span id="ld-n">000</span></div>
+    <div class="ld-row"><span>Bengaluru</span><span id="ld-msg">loading</span></div>
+    <div class="ld-bar"><b></b></div>
+  </div>
+</div>
+<canvas id="gl" aria-hidden="true"></canvas>
+<button id="bot-hit" type="button" aria-label="Robot. Click for a way to reach Naman"></button>
+<a id="bot-say" href="tel:+916378477319" aria-label="Call Naman"><b>Call him</b><small class="mono">tap to dial</small></a>
+<button id="up" type="button" aria-label="Back to top"><svg viewBox="0 0 44 44" aria-hidden="true"><circle class="trk" cx="22" cy="22" r="20"/><circle class="ring" cx="22" cy="22" r="20"/></svg><span>&uarr;</span></button>
+<div class="cur" aria-hidden="true"></div>
+<div class="prog" aria-hidden="true"><b></b></div>
+<a class="skip" href="#work">Skip to work</a>
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Naman Kumar — Data Science & AI Portfolio" />
-    <meta name="twitter:description" content="Aspiring data scientist & AI builder. B.E. Computer Science at DSCE, Bengaluru." />
-    <meta name="twitter:image" content="./og.png" />
+<div class="bar">
+  <a href="#top">Naman Kumar</a>
+  <nav aria-label="Primary">
+    <span class="clock mono" id="clock" aria-hidden="true">Bengaluru</span>
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <a href="assets/Naman_Kumar_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+  </nav>
+</div>
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+<main id="top">
+  <header class="hero">
+    <div class="sun"></div>
+    <div class="cloud c1"></div><div class="cloud c2"></div>
+    <h1 class="name" aria-label="Naman Kumar"><span class="ln" aria-hidden="true"><span class="ch">N</span><span class="ch">A</span><span class="ch">M</span><span class="ch">A</span><span class="ch">N</span></span><span class="ln" aria-hidden="true"><span class="ch">K</span><span class="ch">U</span><span class="ch">M</span><span class="ch">A</span><span class="ch">R</span></span></h1>
+    <div class="meW"><img class="me" src="assets/naman-cut.webp" width="670" height="874" alt="Naman Kumar, hand behind his head, in a suede jacket" fetchpriority="high"></div>
+    <p class="cap l">I build things that sense something<br>and decide what to do about it.</p>
+    <p class="cap r">Computer Science at DSCE, Bengaluru.<br>Class of 2029.</p>
+    <div class="trace" aria-hidden="true">
+      <canvas id="hero-trace"></canvas>
+    </div>
+  </header>
 
-    <!-- Preconnect for performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <script type="module" crossorigin src="./assets/index-OBiLlsuK.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-C5jweCx9.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+  <section class="wrap" id="work" aria-labelledby="work-h">
+    <div class="sec-head">
+      <h2 id="work-h">Work</h2>
+      <p>Five projects. Each one takes a signal in and gives a decision out. The two with a live panel are running real code in your browser right now.</p>
+    </div>
+
+    <!-- Signspeak -->
+    <article class="proj" id="signspeak">
+      <header>
+        <h3>Signspeak</h3>
+        <span class="kind mono">Personal project</span>
+      </header>
+      <div class="copy">
+        <p>Reads the ASL alphabet, numbers and common words off a live camera feed and turns them into text.</p>
+        <p>Each finger is judged by how far it extends and how much it curves. A sign only counts after it holds steady across several frames, so a half-formed one never gets typed. It can speak the result, keeps a gesture library and a detection history. Everything runs in the browser, so no video leaves the device.</p>
+        <dl class="io">
+          <div><dt>In</dt><dd>Live camera frames</dd></div>
+          <div><dt>Out</dt><dd>Text, and speech</dd></div>
+        </dl>
+        <p class="stack mono">MediaPipe, JavaScript</p>
+      </div>
+      <div class="panel" id="hand-panel">
+        <div class="cap mono"><span>21 landmarks, no camera</span><span>tap a finger</span></div>
+        <div class="hand-stage"><canvas id="hand" role="img" aria-label="A hand drawn from 21 tracked landmarks, with a bend reading for each finger"></canvas></div>
+        <div class="fingers" id="fingers"></div>
+        <div class="rd">
+          <div><small>this frame</small><output id="h-raw">·</output></div>
+          <div><small>holding <span class="frames" id="h-frames"></span></small><output id="h-hold" class="sm">&nbsp;</output></div>
+          <div><small>sent</small><div class="letters" id="h-hist"></div></div>
+        </div>
+        <div class="foot mono">Same idea as the real thing, minus the camera. The left readout flickers while the hand moves. The right one only changes once a sign has held for 10 frames.</div>
+      </div>
+    </article>
+
+    <!-- VitalSense -->
+    <article class="proj" id="vitalsense">
+      <header>
+        <h3>ETHiCare VitalSense</h3>
+        <span class="kind mono">Codethon project</span>
+      </header>
+      <div class="copy">
+        <p>Picks out stress and cardiac abnormalities from wearable physiological data, built around the WESAD and ECG datasets.</p>
+        <p>Two services. A Node.js one handles authentication, experiments and reports. A Python FastAPI microservice does the preprocessing, feature extraction and model inference. The front end animates the signals, and the model's results are compared against published literature.</p>
+        <dl class="io">
+          <div><dt>In</dt><dd>Wearable ECG and WESAD signals</dd></div>
+          <div><dt>Out</dt><dd>Stress level, cardiac flags</dd></div>
+        </dl>
+        <p class="stack mono">React, Node.js, FastAPI, Python</p>
+      </div>
+      <div class="panel ecg" id="ecg-panel">
+        <div class="cap mono"><span>lead II, 250 Hz, 25 mm/s, synthetic</span><span id="e-rr">&nbsp;</span></div>
+        <canvas id="ecg" role="img" aria-label="A scrolling ECG trace with detected heartbeats marked"></canvas>
+        <div class="slider">
+          <label for="stress">stress</label>
+          <input id="stress" type="range" min="0" max="100" value="0">
+          <span class="mono" id="e-state">calm</span>
+        </div>
+        <div class="gauge" aria-hidden="true">
+          <div class="g-track"><i id="g-needle"></i></div>
+          <div class="g-row mono"><span id="g-zone">resting</span><span class="g-heart"><i id="g-beat"></i> beat</span></div>
+        </div>
+        <div class="rd">
+          <div><small>heart rate</small><output id="e-bpm">--</output></div>
+          <div><small>HRV (RMSSD)</small><output id="e-hrv">--</output></div>
+          <div><small>detected beats</small><output id="e-n">0</output></div>
+        </div>
+        <div class="foot mono">The waveform is generated, the detector is not. It runs sample by sample: <b>derivative, square, 150 ms moving window, adaptive threshold.</b> Drag the slider and watch heart rate climb while variability collapses. The calm/elevated label is a rule of thumb here, not the trained model.</div>
+      </div>
+    </article>
+
+    <!-- ThoughtFirewall -->
+    <article class="proj" id="thoughtfirewall">
+      <header>
+        <h3>ThoughtFirewall</h3>
+        <span class="kind mono">Hackathon project</span>
+      </header>
+      <div class="copy">
+        <p>A real-time dashboard that scores manipulation risk from 0 to 100 in ads, clickbait and misinformation, and explains the tactics in plain language.</p>
+        <p>Analysis events stream over WebSockets while a six-agent reasoning pipeline works through the text. A reframe mode shows other ways to read the same thing, and source-trust analytics keep track of who is saying it.</p>
+        <dl class="io">
+          <div><dt>In</dt><dd>An ad, a headline, a post</dd></div>
+          <div><dt>Out</dt><dd>Risk score, the tactics behind it</dd></div>
+        </dl>
+        <p class="stack mono">React, WebSocket</p>
+      </div>
+      <div class="panel fw">
+        <div class="cap mono"><span>six agents, one stream</span><span>diagram</span></div>
+        <svg viewBox="0 0 800 300" role="img" aria-label="A piece of text passes through six reasoning agents in sequence and comes out as a risk score, a plain-language explanation of tactics, and a reframe">
+          <rect class="node" x="16" y="116" width="134" height="68" rx="2"/>
+          <text x="30" y="145">ad, headline,</text><text x="30" y="162">post</text>
+          <path class="link" d="M150 150H215"/>
+          <path class="link" d="M215 150H555"/>
+          <text x="262" y="118">events over WebSocket</text>
+                    <g id="agents"></g>
+          <path class="link" d="M571 150C592 150 592 66 610 66"/>
+          <path class="link" d="M571 150H610"/>
+          <path class="link" d="M571 150C592 150 592 234 610 234"/>
+          <rect class="node" x="610" y="42" width="174" height="48" rx="2"/><text class="big" x="626" y="71">Risk, 0 to 100</text>
+          <rect class="node" x="610" y="126" width="174" height="48" rx="2"/><text x="626" y="146">tactics, in</text><text x="626" y="161">plain words</text>
+          <rect class="node" x="610" y="210" width="174" height="48" rx="2"/><text x="626" y="239">reframe mode</text>
+          <circle class="pulse" r="4"><animateMotion id="fw-pulse" dur="3.4s" repeatCount="indefinite" path="M150 150H571"/></circle>
+        </svg>
+        <div class="foot mono">Structure of the pipeline, not live output. No scores are shown on purpose; I'm not going to fake what the model says.</div>
+      </div>
+    </article>
+
+    <!-- SEAMS -->
+    <article class="proj" id="seams">
+      <header>
+        <h3>SEAMS motion alarm</h3>
+        <span class="kind mono">College project</span>
+      </header>
+      <div class="copy">
+        <p>An Arduino Uno system that watches for movement and raises an alarm when there hasn't been any.</p>
+        <p>An ultrasonic sensor reads distance, an I2C LCD shows it with the current status, and LEDs escalate through alert levels. When the no-motion timeout runs out, a servo and buzzer go off. Separate Demo and Real modes use different timing thresholds, so it can be shown on a desk without waiting around.</p>
+        <dl class="io">
+          <div><dt>In</dt><dd>Ultrasonic distance</dd></div>
+          <div><dt>Out</dt><dd>LED levels, servo, buzzer</dd></div>
+        </dl>
+        <p class="stack mono">Arduino Uno, C++, I2C, ultrasonic, servo</p>
+      </div>
+      <div class="panel" id="seams-panel">
+        <div class="cap mono"><span>simulation, 8 s timeout</span><button class="toggle" id="s-toggle" aria-pressed="false">Still</button></div>
+        <div class="seams-stage">
+          <div>
+            <div class="lcd" id="s-lcd" aria-live="off">DIST  142 cm
+STATUS calm</div>
+            <div class="leds" id="s-leds"><i></i><i></i><i></i><span class="mono" id="s-lvl">level 0</span></div>
+            <div class="bar-t"><b id="s-bar"></b></div>
+          </div>
+          <div class="servo" id="s-servo">
+            <svg viewBox="0 0 200 210" aria-hidden="true">
+              <rect x="56" y="100" width="88" height="46" fill="none" stroke="currentColor" stroke-width="1"/>
+              <g class="arm" id="s-arm" style="transform:rotate(-65deg)"><path d="M100 100L100 34" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="100" cy="100" r="6" fill="var(--ink)"/></g>
+              <circle cx="100" cy="182" r="9" fill="var(--ink)"/>
+              <circle class="wave" cx="100" cy="182" r="22"/><circle class="wave" cx="100" cy="182" r="22"/><circle class="wave" cx="100" cy="182" r="22"/>
+            </svg>
+          </div>
+        </div>
+        <div class="foot mono">Press <b>Moving</b> and the timer resets. Leave it <b>Still</b> and the LEDs escalate, then the servo swings and the buzzer sounds. An illustration of the logic, not the firmware.</div>
+      </div>
+    </article>
+
+    <!-- Smart Mess -->
+    <article class="proj" id="mess">
+      <header>
+        <h3>Smart Mess Attendance</h3>
+        <span class="kind mono">Personal project</span>
+      </header>
+      <div class="copy">
+        <p>A web app to cut food waste in a college mess. Students mark each meal as eat or skip, and staff see the live headcount before they cook.</p>
+        <p>REST endpoints for attendance and stats, with form validation and toast notifications.</p>
+        <dl class="io">
+          <div><dt>In</dt><dd>Eat or skip, per student per meal</dd></div>
+          <div><dt>Out</dt><dd>Live headcount for the kitchen</dd></div>
+        </dl>
+        <p class="stack mono">Python, REST</p>
+      </div>
+      <div class="panel" id="mess-panel">
+        <div class="cap mono"><span>two endpoints</span><span>demo data</span></div>
+        <div class="mess-grid">
+          <div>
+            <div class="req mono">POST /api/attendance</div>
+            <div>Dinner tonight?</div>
+            <div class="choice"><button data-v="eat" aria-pressed="false">Eat</button><button data-v="skip" aria-pressed="false">Skip</button></div>
+            <div class="toast mono" id="m-toast" role="status"></div>
+          </div>
+          <div>
+            <div class="req mono">GET /api/stats</div>
+            <pre class="json" id="m-json"></pre>
+          </div>
+        </div>
+        <div class="foot mono">Starting numbers are made up. The buttons are real.</div>
+      </div>
+    </article>
+  </section>
+
+  <section class="wrap" id="about" aria-labelledby="about-h">
+    <h2 class="sr" id="about-h" style="position:absolute;left:-999px">About</h2>
+    <div class="about">
+      <p class="lede">Third semester, 8.75 CGPA. Three hackathons entered, two won. The projects above are the rest of the argument.</p>
+      <dl>
+        <div><dt>Studying</dt><dd>B.E. Computer Science, Dayananda Sagar College of Engineering, Bengaluru. Graduating 2029.</dd></div>
+        <div><dt>Won</dt><dd>Zero to One hackathon at DSCE. The Department of Physics ideathon.</dd></div>
+        <div><dt>Writes</dt><dd>Python, C, C++, JavaScript, HTML, CSS.</dd></div>
+        <div><dt>Wires</dt><dd>Arduino Uno, I2C, PWM, ultrasonic sensors, servos, LCDs.</dd></div>
+        <div><dt>Aiming at</dt><dd>Data science and AI. Mostly the kind that ends up on a screen or inside a circuit.</dd></div>
+        <div><dt>Paper</dt><dd><a class="link-u" href="assets/Naman_Kumar_Resume.pdf" target="_blank" rel="noopener">Resume, PDF</a></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="wrap contact" id="contact" aria-labelledby="contact-h">
+    <p class="say" id="contact-h">If something here is interesting, write.</p>
+    <a class="mail" href="mailto:nkg2641@gmail.com"><span>nkg2641@gmail.com</span></a>
+    <div class="row">
+      <button class="copy-btn" id="copy" type="button">Copy address</button>
+      <a class="link-u" href="https://github.com/Naman2641" target="_blank" rel="noopener">GitHub</a>
+      <a class="link-u" href="https://www.linkedin.com/in/namankumar2641/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <footer>
+      <span class="mono" id="clock2">Bengaluru</span>
+    </footer>
+  </section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="app.js" defer></script>
+<script src="src/loader.js"></script>
+</body>
 </html>
