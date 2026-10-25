@@ -140,15 +140,14 @@ else {
     a.fadeIn(o.fade ?? 0.3).play(); if (cur && cur !== a) cur.fadeOut(o.fade ?? 0.3); cur = a;
   };
 
-  const GROUND = 10, rnd = (a, b) => a + Math.random() * (b - a), ease = (t) => t * t * (3 - 2 * t);
-  const EMOTES = [["Wave", 2.4], ["Dance", 4.2], ["Yes", 1.9], ["No", 1.9], ["Jump", 1.3], ["ThumbsUp", 2], ["Sitting", 3.4], ["Punch", 1.4]];
+  const GROUND = 10, rnd = (a, b) => a + Math.random() * (b - a);
+  const EMOTES = [["Wave", 2.4], ["ThumbsUp", 2.0], ["Yes", 1.9], ["No", 1.9]];
   const minRobX = () => H * 0.25;
   const maxRobX = () => Math.max(minRobX(), W - 160 - H * 0.22);
-  const B = { mode: "idle", t: 0, dur: 0, wait: 2.5, x: Math.min(innerWidth * 0.55, innerWidth - 250), y0: GROUND, arc: 0, tx: 0, from: 0, top: GROUND, face: 0, still: 0, waved: false };
+  const B = { mode: "idle", t: 0, dur: 0, wait: 4.0, x: Math.min(innerWidth * 0.55, innerWidth - 250), y0: GROUND, tx: 0, face: 0 };
   const go = (m, d = 0) => { B.mode = m; B.t = 0; B.dur = d; };
   const say = $("#bot-say"), hit = $("#bot-hit");
-  const OBST = $$(".sec-head, .proj .copy, .panel, .about, .contact .say, .contact .mail, .contact .row, footer");
-  const busy = () => ["fall", "lying", "rise"].includes(B.mode);
+  const busy = () => false;
 
   new GLTFLoader().load(MODEL, (gl) => {
     const m = gl.scene, box = new THREE.Box3().setFromObject(m), sz = box.getSize(new THREE.Vector3()), c = box.getCenter(new THREE.Vector3());
@@ -171,85 +170,55 @@ else {
 
   const choose = () => {
     const r = Math.random(), mx = maxRobX(), mn = minRobX();
-    if (r < 0.7 && mx > mn + 20) {
+    if (r < 0.35 && mx > mn + 40) {
       let x, n = 0;
       do { x = rnd(mn, mx); } while (Math.abs(x - B.x) < (mx - mn) * 0.25 && ++n < 20);
       B.tx = x; go("walk");
-    } else {
+      B.wait = rnd(4.0, 8.0);
+    } else if (r < 0.65) {
       const [n, d] = EMOTES[Math.floor(Math.random() * EMOTES.length)];
       act(n, { force: true }); go("emote", d);
+      B.wait = rnd(5.0, 9.0);
+    } else {
+      act(window.__music && window.__music.on ? "Dance" : "Idle");
+      B.wait = rnd(4.0, 7.0);
     }
-    B.wait = rnd(0.2, 0.9);
   };
 
-  addEventListener("beat", (e) => { B.beat = Math.min(1, 0.6 + (e.detail || 0.4)); });
-  let mx = 0, lastY = scrollY, vs = 0, last = performance.now();
+  addEventListener("beat", () => {});
+  let mx = 0, last = performance.now();
   addEventListener("pointermove", (e) => { mx = (e.clientX / innerWidth) * 2 - 1; });
 
   const frame = () => {
     const now = performance.now(), dt = Math.min((now - last) / 1000, 0.1); last = now;
     if (document.hidden || !mixer) return;
-    const sy = lenis ? lenis.scroll : scrollY;
-    vs += (Math.abs(sy - lastY) / Math.max(dt, 0.001) - vs) * 0.25; lastY = sy;
     B.t += dt;
-
-    // scrolling too hard knocks him over
-    if (!busy() && !reduced && vs > 2200) {
-      say.classList.remove("on"); B.y0 = GROUND; B.arc = 0;
-      act("Death", { loop: false, force: true, fade: 0.1 }); go("fall", acts.Death.getClip().duration); B.still = 0;
-    }
-
-    // blocks and text push him sideways as they scroll into him
-    let pushed = 0;
-    if (!reduced && !["fall", "lying", "rise", "talk"].includes(B.mode)) {
-      const hw = H * 0.2, top = VH - (B.y0 + H * 0.8), bot = VH - B.y0;
-      for (const r of OBST) {
-        const q = r.getBoundingClientRect();
-        if (q.bottom < top || q.top > bot || q.right < B.x - hw || q.left > B.x + hw) continue;
-        const toL = B.x + hw - q.left, toR = q.right - (B.x - hw);
-        const dx = toL < toR ? -toL : toR;
-        if (Math.abs(dx) > Math.abs(pushed)) pushed = dx;
-      }
-      if (pushed) {
-        const step = Math.sign(pushed) * Math.min(Math.abs(pushed), 900 * dt + Math.abs(pushed) * 0.15);
-        B.x = Math.min(maxRobX(), Math.max(minRobX(), B.x + step));
-        B.pdir = Math.sign(pushed); B.lastPush = now;
-        if (B.mode !== "shove") { act("Running"); go("shove"); }
-      }
-    }
 
     let face = mx * 0.04;
     switch (B.mode) {
-      case "shove": face = (B.pdir || 1) * (Math.PI / 2); if (now - (B.lastPush || 0) > 350) { act("Idle"); go("idle"); } break;
       case "idle": act(window.__music && window.__music.on ? "Dance" : "Idle"); if (!reduced && B.t > B.wait) choose(); break;
-      case "emote": if (B.t > B.dur) { act("Idle"); go("idle"); } break;
+      case "emote": if (B.t > B.dur) { act(window.__music && window.__music.on ? "Dance" : "Idle"); go("idle"); } break;
       case "walk": {
-        const d = B.tx - B.x, dir = Math.sign(d) || 1, run = Math.abs(d) > W * 0.15;
-        act(run ? "Running" : "Walking"); face = dir * (Math.PI / 2);
-        B.x += dir * Math.min(Math.abs(d), H * (run ? 1.6 : 0.8) * dt);
-        if (Math.abs(d) <= 2) { act("Idle"); go("idle"); }
+        const d = B.tx - B.x, dir = Math.sign(d) || 1;
+        act("Walking"); face = dir * (Math.PI / 2);
+        B.x += dir * Math.min(Math.abs(d), H * 0.45 * dt);
+        if (Math.abs(d) <= 2) { act(window.__music && window.__music.on ? "Dance" : "Idle"); go("idle"); }
         break;
       }
-      case "talk": face = 0; if (!B.waved && B.t > 2.4) { B.waved = true; act("Idle"); } if (B.t > B.dur) { say.classList.remove("on"); go("idle"); } break;
-      case "fall": face = 0; if (B.t > B.dur) go("lying"); break;
-      case "lying": face = 0; B.still = vs < 250 ? B.still + dt : 0;
-        if (B.still > 0.9) { act("Death", { loop: false, rev: true, force: true, fade: 0.1 }); go("rise", acts.Death.getClip().duration); } break;
-      case "rise": face = 0; if (B.t > B.dur) { act("Idle", { force: true }); go("idle"); B.wait = 1.2; } break;
     }
 
-    B.beat = Math.max(0, (B.beat || 0) - dt * 4.5);
     B.x = Math.min(maxRobX(), Math.max(minRobX(), B.x));
-    if (!isFinite(B.x) || !isFinite(B.y0) || !isFinite(B.arc)) { B.x = W / 2; B.y0 = GROUND; B.arc = 0; go("idle"); }
+    if (!isFinite(B.x)) { B.x = W / 2; go("idle"); }
     holder.visible = true;
-    const y = Math.max(0, Math.min(B.y0 + B.arc + H * 0.035 * B.beat, VH - H - 8));
+    const y = GROUND;
     holder.position.set(B.x, y, 0); holder.scale.setScalar(H);
     holder.rotation.y += (face - holder.rotation.y) * (1 - Math.exp(-dt * 8));
-    shadow.position.x = B.x; shadow.position.y = B.y0 + 4;
-    const lift = 1 - Math.min(0.6, B.arc / (H * 0.5)); shadow.scale.set(H * 0.62 * lift, H * 0.1 * lift, 1);
+    shadow.position.x = B.x; shadow.position.y = GROUND + 4;
+    shadow.scale.set(H * 0.62, H * 0.1, 1);
     const hitW = H * 0.28, hitH = H * 0.65;
     hit.style.width = hitW + "px"; hit.style.height = hitH + "px";
     hit.style.transform = `translate(${B.x - hitW / 2}px,${-y}px)`;
-    hit.style.pointerEvents = busy() ? "none" : "auto";
+    hit.style.pointerEvents = "auto";
     const bx = Math.min(maxRobX(), Math.max(minRobX(), B.x));
     say.style.transform = `translate(${bx}px,${-Math.min(y + H * 0.75, VH - 90)}px) translateX(-50%)`;
     mixer.update(dt);
