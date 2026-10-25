@@ -2,7 +2,11 @@
 // after a few seconds, even if a CDN is blocked.
 (() => {
   const L = document.getElementById("loader"), h = document.documentElement;
-  if (!L || !h.classList.contains("ld")) return;
+  if (!L || !h.classList.contains("ld")) {
+    import("./fx.js").catch(() => {});
+    import("./music.js").catch(() => {});
+    return;
+  }
   const n = document.getElementById("ld-n"), m = document.getElementById("ld-msg");
   let p = 0.08, shown = 0, over = false;
   const min = Date.now() + 2000, fail = Date.now() + 9000;
